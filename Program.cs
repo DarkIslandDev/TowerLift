@@ -1,47 +1,51 @@
 ﻿class Program
 {
-    public static List<int> floors;
-    public static List<int> rooms;
+    //  СЧЕТЧИКИ
+    public static int i = 0;    //  комнат
+    public static int x = 0;    //  этапы
+    public static int f = 0;    //  этажи
+    public static int d = 0;    //  дверь слева
 
-    public static void Lift(int room)
+    public static int d_Room;   //  получает число вводимое в консоли
+
+    //  коллекции башни
+    public static List<int> tower = new List<int>();
+    public static List<int> block = new List<int>();
+    public static List<int> floor = new List<int>();
+
+
+
+    public static void Lift()
     {
-        int floor = 0;
-        floors = new List<int> {1};
-        rooms = new List<int> {1};
-
-        for (int i = 0; i < floors.Count; i++)
+        while (i < d_Room)
         {
-            for (int j = 0; j < rooms.Count; j++)
-            {
-                rooms[i] = room;
-                floors[i] = rooms[j] + rooms[j];
-                floor = floors[i];
+            x += 1;
 
+
+            for (int j = 0; j < x; j++)
+            {
+                f += 1;
+
+                for (int k = 0; k < x; k++)
+                {
+                    i += 1;
+                    floor.Append(i);
+
+                    if (i == d_Room)
+                    {
+                        Console.WriteLine($"Расположение комнаты: {d_Room}, \nЭтаж: {f}, \nДверь слева: {d + 1}");
+                    }
+                }
+                block.AddRange(floor);
             }
+            tower.AddRange(block);
         }
-        Console.WriteLine($"{floor} {room}");
     }
 
     public static void Main()
     {
-        Console.Write("Введите номер отеля: ");
-
-        int n = int.Parse(Console.ReadLine());
-
-        //Lift(result);
-        //Console.ReadKey();
-
-        int result = 0;
-        int b = 1;
-        int tmp;
-
-        for (int i = 0; i < n; i++)
-        {
-            tmp = result;
-            result = b;
-            b += tmp;
-        }
-
-        Console.WriteLine(result);
+        Console.Write("Введите номер комнаты: ");
+        d_Room = int.Parse(Console.ReadLine());
+        Lift();
     }
 }
